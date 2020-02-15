@@ -16,20 +16,24 @@ function SwitchTheme(state=initstate , action){
     }
 }
 
-let notes = [
-    {
-        title : "Abhay",
-        body : "This is a first note i have made"
-    },
-    {
-        title : "Second Note",
-        body : "This is the second note in the list"
-    }
-]
+// let notes = [
+//     {
+//         title : "Abhay",
+//         body : "This is a first note i have made"
+//     },
+//     {
+//         title : "Second Note",
+//         body : "This is the second note in the list"
+//     }
+// ]
+
+let notes = JSON.parse(localStorage.getItem('notes'))
 
 function NoteReducer(state = notes , action){
     switch (action.type){
         case "AddNote":
+            const data = [...state,action.value];
+            localStorage.setItem('notes' , JSON.stringify(data))
             return[
             ...state ,
             action.value

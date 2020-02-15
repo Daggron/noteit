@@ -4,7 +4,10 @@ import { useDispatch } from 'react-redux';
 
 export default function AddNote() {
     const [title , setTitle] = React.useState(null);
+
     const [body , handleBody] = React.useState(null);
+
+    const [hidden , toggleHide] = React.useState(true);
 
     const handleTitleChange = (e)=>{
         setTitle(e.target.value);
@@ -18,17 +21,23 @@ export default function AddNote() {
 
     const handleSave = (e)=>{
         e.preventDefault();
-        dispatch(addNote({title,body}))    
+        dispatch(addNote({title,body}));
+        toggleHide(true)    
     }
 
     return (
         <div>
             <div className="title">
-                <input type="text" onChange={handleTitleChange}/>
+                <input type="text" onClick={()=>toggleHide(false)} onChange={handleTitleChange}/>
             </div>
-            <div className="body">
-                <textarea onChange={handleBodyChange}></textarea>
-            </div>
+            {!hidden?(
+                 <div className="body">
+                    <textarea onChange={handleBodyChange}></textarea>
+                </div>
+            ):(
+                <div/>
+            )}
+           
             <div className="buttongroup">
                 <button>
                     Cancel
