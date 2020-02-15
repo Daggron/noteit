@@ -1,4 +1,5 @@
-export function AddNote(value){
+export function addNote(value){
+    console.log(value)
     return{
         type : "AddNote",
         value : value

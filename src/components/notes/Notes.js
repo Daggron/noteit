@@ -1,21 +1,22 @@
 import React from 'react'
+import marked from 'marked';
+
 
 export default function Notes(props) {
      
+    const convertToHtml = (raw)=>{
+        return {__html : raw}
+    }
 
     return (
         <div>
-            
-            <h1>
+            <h3>
                 {
                    props.note.title
                 }
-            </h1>
-
+            </h3>
             <br/>
-            {
-                props.note.body
-            }
+            <div dangerouslySetInnerHTML={convertToHtml(marked(props.note.body))} />
         </div>
     )
 }

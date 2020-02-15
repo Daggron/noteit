@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import Notes from '../notes/Notes'
 import './home.css'
 import Dialouge from '../notes/Dialouge';
+import AddNote from '../notes/AddNote';
 
 export default function Home() {
     const notes = useSelector(state=>state.NoteReducer);
@@ -12,7 +13,6 @@ export default function Home() {
     const [note , setNote] = React.useState(null);
 
     const handleClose = ()=>{
-        console.log('clicked')
         setOpen(false)
     }
 
@@ -22,17 +22,20 @@ export default function Home() {
         setNote(e);
     }  
     return (
-        <div className="notes">
-            <Dialouge open={open} handleClose={handleClose} note={note} />
-            {
-                notes.map(eachNote=>{
-                    return(
-                        <div onClick={()=>{handleNote(eachNote); setOpen(true)}} className="singlenote" key={eachNote.title+eachNote.body}>
-                           <Notes note={eachNote} />
-                        </div>
-                    )
-                })
-            }
+        <div>
+            <AddNote />
+            <div className="notes">
+                <Dialouge open={open} handleClose={handleClose} note={note} />
+                {
+                    notes.map(eachNote=>{
+                        return(
+                            <div onClick={()=>{handleNote(eachNote); setOpen(true)}} className="singlenote" key={eachNote.title+eachNote.body}>
+                            <Notes note={eachNote} />
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

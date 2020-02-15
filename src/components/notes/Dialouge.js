@@ -1,6 +1,16 @@
 import React from 'react'
+import './notes.css'
+import marked from 'marked'
 
 export default function Dialouge({open , handleClose , note}) {
+
+    const convertToHtml = (raw)=>{
+        return{
+            __html : raw
+        }
+    }
+
+
     if(open){
         return(
             <div className="open">
@@ -10,7 +20,8 @@ export default function Dialouge({open , handleClose , note}) {
                             note.title
                         }
                     </h1>
-                    <button onClick={handleClose}>
+                    <div dangerouslySetInnerHTML={convertToHtml(marked(note.body))} />
+                    <button className="btn" onClick={handleClose}>
                         Close
                     </button>
                 </div>
