@@ -1,9 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector , useDispatch } from 'react-redux';
 import Notes from '../notes/Notes';
 import './home.css'
 import Dialouge from '../notes/Dialouge';
 import AddNote from '../notes/AddNote'; 
+import { DeleteNote ,  UpdatePinnedNote, UpdateNote} from '../redux/actions/actions';
 
 
 export default function Archived() {
@@ -11,6 +12,8 @@ export default function Archived() {
     let [notes , setNotes ] = React.useState([]);
 
     const raw = useSelector(state=>state.NoteReducer);
+
+    const dispatch = useDispatch();
 
     const [open , setOpen] = React.useState(false);
 
@@ -20,6 +23,27 @@ export default function Archived() {
     const handleClose = ()=>{
         setOpen(false)
     }
+
+    const deleteNote = async (e)=>{
+        const value = await notes.filter(eachNote=>{
+            if(e === eachNote){
+                console.log(e);
+                return false
+            }
+            return true
+        })
+        dispatch(DeleteNote(value));
+        console.log(value)
+    }
+
+    const updateArchived = async(e)=>{
+        dispatch(UpdateNote(e))
+    }
+
+    const updatePinned = (e)=>{
+        dispatch(UpdatePinnedNote(e))
+    }
+
     
 
     const handleNote = (e)=>{
@@ -59,8 +83,8 @@ export default function Archived() {
                 {
                     notes.map(eachNote=>{
                             return(
-                                <div onClick={()=>{handleNote(eachNote); setOpen(true)}} className="singlenote" key={eachNote.title+eachNote.body}>
-                                <Notes note={eachNote} />
+                                <div className="singlenote" key={eachNote.id}>
+                                    <Notes note={eachNote} deleteNote={deleteNote} handleNote={handleNote} setOpen={setOpen} updateArchived={updateArchived} updatePinned={updatePinned} />
                                 </div>
                             )
                     })

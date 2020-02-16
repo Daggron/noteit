@@ -90,3 +90,12 @@ ul{
 .container:hover ul{
     opacity: 1;
 }
+
+li{
+    display: inline;
+    padding: 10px;
+}
+
+li>i:hover{
+    color: rebeccapurple;
+}

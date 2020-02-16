@@ -25,7 +25,13 @@ export default function Notes(props) {
             <div className="options hide">
                 <ul>
                     <li>
-                        <i className="material-icons" onClick={()=>props.deleteNote(props.note)}>delete</i>
+                        <i className="material-icons" onClick={()=>props.deleteNote(props.note.id)}>delete</i>
+                    </li>
+                    <li>
+                        <i className="material-icons" onClick={()=>{props.updateArchived(props.note.id)}}>archive</i>
+                    </li>
+                    <li>
+                        <i className="material-icons" onClick={()=>props.updatePinned(props.note.id)}>person_pin</i>
                     </li>
                 </ul>
             </div>

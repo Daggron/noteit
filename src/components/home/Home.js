@@ -4,7 +4,7 @@ import Notes from '../notes/Notes'
 import './home.css'
 import Dialouge from '../notes/Dialouge';
 import AddNote from '../notes/AddNote'; 
-import {DeleteNote} from '../redux/actions/actions';
+import { DeleteNote , UpdateNote , UpdatePinnedNote} from '../redux/actions/actions';
 
 export default function Home() {
     const notes = useSelector(state=>state.NoteReducer);
@@ -27,14 +27,21 @@ export default function Home() {
 
     const deleteNote = async (e)=>{
         const value = await notes.filter(eachNote=>{
-            if(e === eachNote){
-                console.log(e);
-                return false
+            if(e === eachNote.id){
+                return false;
             }
-            return true
+            return true;
         })
         dispatch(DeleteNote(value));
         console.log(value)
+    }
+
+    const updateArchived = (e)=>{
+        dispatch(UpdateNote(e))
+    }
+
+    const updatePinned = (e)=>{
+        dispatch(UpdatePinnedNote(e))
     }
 
     if(notes.length===0){
@@ -55,12 +62,12 @@ export default function Home() {
                 {
                     notes.map(eachNote=>{
                         if(eachNote.isArchived){
-                           return <React.Fragment key={eachNote.title+eachNote.body}></React.Fragment> 
+                           return <React.Fragment key={eachNote.id}></React.Fragment> 
                         }else{
                             return(
                                 // onClick={()=>{handleNote(eachNote); setOpen(true)}} 
                                     <div className="singlenote" key={eachNote.title+eachNote.body}>
-                                        <Notes note={eachNote} deleteNote={deleteNote} handleNote={handleNote} setOpen={setOpen} />
+                                        <Notes note={eachNote} deleteNote={deleteNote} handleNote={handleNote} setOpen={setOpen} updateArchived={updateArchived} updatePinned={updatePinned} />
                                     </div>
                             )
                         }

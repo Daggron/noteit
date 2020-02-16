@@ -1,6 +1,7 @@
 import React from 'react'
 import {addNote} from '../redux/actions/actions';
 import { useDispatch } from 'react-redux';
+import uuid from 'uuid';
 
 export default function AddNote() {
     const [title , setTitle] = React.useState(null);
@@ -25,7 +26,7 @@ export default function AddNote() {
 
     const handleSave = (e)=>{
         e.preventDefault();
-        dispatch(addNote({title,body , isArchived , isPinned}));
+        dispatch(addNote({title,body , isArchived , isPinned , id : uuid() }));
         toggleHide(true)    
     }
 
