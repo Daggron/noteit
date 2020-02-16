@@ -6,6 +6,14 @@ export function addNote(value){
     }
 }
 
+export function DeleteNote(value){
+    return {
+        type : "DeleteNote",
+        value : value
+    }
+}
+
+
 export function ArchiveNote(value){
     return{
         type : "Archive",

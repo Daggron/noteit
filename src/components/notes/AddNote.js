@@ -9,6 +9,10 @@ export default function AddNote() {
 
     const [hidden , toggleHide] = React.useState(true);
 
+    const [isArchived , setArchived ] = React.useState(false);
+
+    const [isPinned , setPinned ] = React.useState(false);
+
     const handleTitleChange = (e)=>{
         setTitle(e.target.value);
     }
@@ -21,31 +25,38 @@ export default function AddNote() {
 
     const handleSave = (e)=>{
         e.preventDefault();
-        dispatch(addNote({title,body}));
+        dispatch(addNote({title,body , isArchived , isPinned}));
         toggleHide(true)    
     }
 
+
+
     return (
-        <div>
+        <div className="editor">
             <div className="title">
-                <input type="text" onClick={()=>toggleHide(false)} onChange={handleTitleChange}/>
+                <input type="text" placeholder="Title" onClick={()=>toggleHide(false)} onChange={handleTitleChange}/>
             </div>
             {!hidden?(
                  <div className="body">
-                    <textarea onChange={handleBodyChange}></textarea>
+                    <textarea placeholder="Add Description Here..." onChange={handleBodyChange}></textarea>
+                    <div className="buttongroup">
+                        <button>
+                             <i className="material-icons" onClick={()=>setArchived(true)}>archive</i>
+                        </button>
+                        <button>
+                            <i className="material-icons" onClick={()=>setPinned(true)}>mark </i>
+                        </button>
+                        <button>
+                            Cancel
+                        </button>
+                        <button onClick={handleSave}>
+                            Save
+                        </button>
+                    </div>
                 </div>
             ):(
                 <div/>
             )}
-           
-            <div className="buttongroup">
-                <button>
-                    Cancel
-                </button>
-                <button onClick={handleSave}>
-                    Save
-                </button>
-            </div>
         </div>
     )
 }

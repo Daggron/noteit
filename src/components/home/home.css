@@ -33,3 +33,16 @@
         padding-bottom: 5%;
     }
 }
+
+ul{
+    display: inline-block;
+    list-style: none;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    opacity: 0;
+}
+
+.container:hover ul{
+    opacity: 1;
+}

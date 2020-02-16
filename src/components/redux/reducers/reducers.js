@@ -27,7 +27,7 @@ function SwitchTheme(state=initstate , action){
 //     }
 // ]
 
-let notes = JSON.parse(localStorage.getItem('notes'))
+let notes = JSON.parse(localStorage.getItem('notes')) || []
 
 function NoteReducer(state = notes , action){
     switch (action.type){
@@ -37,7 +37,13 @@ function NoteReducer(state = notes , action){
             return[
             ...state ,
             action.value
-        ]
+            ]
+        case "DeleteNote":
+            const updatedata = [...action.value];
+            localStorage.setItem('notes' , JSON.stringify(updatedata))
+            return[
+                ...action.value
+            ]
         default : return state
     }
 }
