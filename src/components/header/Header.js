@@ -9,17 +9,25 @@ export default function Header({open , setOpen , title}) {
    
     return (
         <div className="header">
-           
-            <Hamburger open={open} setOpen={setOpen} />
+
+            <div className="header-box">
+
+                <Hamburger open={open} setOpen={setOpen} />
+
+                <div className="componenttitle subComponent">
+
+                <Title title={title} />
+
+                </div>
+            </div>
         
-            <div className="componenttitle">
-               <Title title={title} />
-            </div>
             <div className="searchBox">
-               <SearchBar />
+
+            <SearchBar />
+
             </div>
             
-            
+
         </div>
     )
 }

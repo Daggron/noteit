@@ -24,6 +24,7 @@ export default function SearchBar() {
     return (
         <div>
              <input type="text" className="searchbar" value={serach} placeholder="SearchHere" onChange={handleChange} />
+               
                 {
                     (serach.length!==0)?(
                         <i onClick={handleClose} className="material-icons delete">delete</i>
@@ -31,6 +32,7 @@ export default function SearchBar() {
                         ""
                     )
                 }
+        
         </div>
     )
 }

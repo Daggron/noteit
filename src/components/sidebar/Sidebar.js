@@ -9,13 +9,13 @@ const Sidebar = props =>{
             <nav className="sidebarnav">
                 <div className="links">
                    <div className="link">
-                       <Link to="/" style={{textDecoration : "none" , color : "white"}} onClick={()=>props.setTitleHeader("Home")}>
+                       <Link to="/" style={{textDecoration : "none" , color : "black"}} onClick={()=>props.setTitleHeader("Home")}>
                            <i className="material-icons">home</i>
                            Home
                        </Link>
                    </div>
                    <div className="link">
-                       <Link to="/archived" onClick={()=>props.setTitleHeader("Archive")} style={{textDecoration : "none" , color : "white"}}>
+                       <Link to="/archived" onClick={()=>props.setTitleHeader("Archive")} style={{textDecoration : "none" , color : "black"}}>
                             <i className="material-icons">archive</i>
                            Archive
                        </Link>
