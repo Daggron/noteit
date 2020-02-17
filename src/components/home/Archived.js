@@ -1,50 +1,25 @@
 import React from 'react'
-import { useSelector , useDispatch } from 'react-redux';
+import { useSelector  } from 'react-redux';
 import Notes from '../notes/Notes';
 import './home.css'
 import Dialouge from '../notes/Dialouge';
 import AddNote from '../notes/AddNote'; 
-import { DeleteNote ,  UpdatePinnedNote, UpdateNote} from '../redux/actions/actions';
-
 
 export default function Archived() {
     
     let [notes , setNotes ] = React.useState([]);
 
-    const raw = useSelector(state=>state.NoteReducer);
-
-    const dispatch = useDispatch();
+    const raw = useSelector(state=>state);
 
     const [open , setOpen] = React.useState(false);
 
     const [note , setNote] = React.useState(null);
 
 
+
     const handleClose = ()=>{
         setOpen(false)
     }
-
-    const deleteNote = async (e)=>{
-        const value = await notes.filter(eachNote=>{
-            if(e === eachNote){
-                console.log(e);
-                return false
-            }
-            return true
-        })
-        dispatch(DeleteNote(value));
-        console.log(value)
-    }
-
-    const updateArchived = async(e)=>{
-        dispatch(UpdateNote(e))
-    }
-
-    const updatePinned = (e)=>{
-        dispatch(UpdatePinnedNote(e))
-    }
-
-    
 
     const handleNote = (e)=>{
         setNote(e);
@@ -67,10 +42,10 @@ export default function Archived() {
     if(notes.length===0){
         return (
             <div>
-                {
-                    console.log(notes)
-                }
-                Hello
+                <AddNote />
+                <div style={{marginTop : 10}}>
+                    Notes you archive appear here <span role="img" aria-label="smileEmoji">😄</span>
+                </div>
             </div>
         )
     }
@@ -84,7 +59,7 @@ export default function Archived() {
                     notes.map(eachNote=>{
                             return(
                                 <div className="singlenote" key={eachNote.id}>
-                                    <Notes note={eachNote} deleteNote={deleteNote} handleNote={handleNote} setOpen={setOpen} updateArchived={updateArchived} updatePinned={updatePinned} />
+                                    <Notes note={eachNote} handleNote={handleNote} setOpen={setOpen}  />
                                 </div>
                             )
                     })

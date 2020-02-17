@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import uuid from 'uuid';
 
 export default function AddNote() {
-    const [title , setTitle] = React.useState(null);
+    const [title , setTitle] = React.useState("");
 
     const [body , handleBody] = React.useState(null);
 
@@ -14,6 +14,7 @@ export default function AddNote() {
 
     const [isPinned , setPinned ] = React.useState(false);
 
+    
     const handleTitleChange = (e)=>{
         setTitle(e.target.value);
     }
@@ -25,9 +26,17 @@ export default function AddNote() {
     const dispatch = useDispatch();
 
     const handleSave = (e)=>{
-        e.preventDefault();
-        dispatch(addNote({title,body , isArchived , isPinned , id : uuid() }));
-        toggleHide(true)    
+        if(title||body){
+            dispatch(addNote({title,body , isArchived , isPinned , id : uuid() }));
+            toggleHide(true)
+            setArchived(false);
+            setPinned(false);
+            setTitle("");
+            handleBody(null);
+        }
+
+        toggleHide(true)
+        
     }
 
 
@@ -35,24 +44,27 @@ export default function AddNote() {
     return (
         <div className="editor">
             <div className="title">
-                <input type="text" placeholder="Title" onClick={()=>toggleHide(false)} onChange={handleTitleChange}/>
+                <input type="text" value={title} placeholder="Title" onClick={()=>toggleHide(false)} onChange={handleTitleChange}/>
             </div>
             {!hidden?(
                  <div className="body">
                     <textarea placeholder="Add Description Here..." onChange={handleBodyChange}></textarea>
                     <div className="buttongroup">
-                        <button>
-                             <i className="material-icons" onClick={()=>setArchived(true)}>archive</i>
+                        <button className="button">
+                            <acronym title="Archive Note">
+                              <i className="material-icons" onClick={()=>setArchived(true)}>archive</i>
+                            </acronym>
+                            
                         </button>
-                        <button>
-                            <i className="material-icons" onClick={()=>setPinned(true)}>mark </i>
+                        <button  className="button">
+                            <acronym title="Pin Note">
+                                 <i className="material-icons" onClick={()=>{setPinned(true);}}>person_pin</i>
+                            </acronym>
                         </button>
-                        <button>
-                            Cancel
+                        <button  className="button close" type="submit" onClick={handleSave}>
+                            Close
                         </button>
-                        <button onClick={handleSave}>
-                            Save
-                        </button>
+                       
                     </div>
                 </div>
             ):(

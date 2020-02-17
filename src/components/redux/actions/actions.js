@@ -1,5 +1,4 @@
 export function addNote(value){
-    console.log(value)
     return{
         type : "AddNote",
         value : value
@@ -34,3 +33,16 @@ export function ArchiveNote(value){
     }
 }
 
+
+export function Search(value){
+    return{
+        type : "Search",
+        value : value
+    }
+}
+
+export function AllNote(){
+    return {
+        type : "AllNote"
+    }
+}
